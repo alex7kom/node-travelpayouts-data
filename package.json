@@ -1,0 +1,21 @@
+{
+  "name": "travelpayouts-data",
+  "version": "0.0.1",
+  "description": "Travelpayouts (Aviasales) data files with query interface",
+  "main": "index.js",
+  "keywords": [
+    "travelpayouts",
+    "aviasales",
+    "API"
+  ],
+  "scripts": {},
+  "author": "Alexey Komarov <alex7kom@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alex7Kom/node-travelpayouts-data.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "json-query": "^2.1.0"
+  }
+}
