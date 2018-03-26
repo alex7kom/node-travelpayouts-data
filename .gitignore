@@ -1,2 +1,13 @@
+# deps
 node_modules
+
+# IDEs
+.vscode
+.idea
+
+# trash
+.DS_Store
+
+## DO NOT EDIT ABOVE THIS LINE ##
+
 data
