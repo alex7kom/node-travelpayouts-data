@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const path = require('path');
 
 const downloadData = require('dl-data');
 
-downloadData(path.join(__dirname, '..'), require('./files.json'))
-  .then(() => {
-    console.log('All files downloaded!');
-  });
+const baseDir = path.join(__dirname, '..');
+const files = require('./files.json');
+
+downloadData(baseDir, files).then(() => {
+  console.log('All files downloaded!');
+});
