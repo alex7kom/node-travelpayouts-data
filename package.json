@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "dl-data": "^1.0.0",
-    "json-query": "^2.1.0"
+    "json-query": "^2.2.2"
   },
   "devDependencies": {
     "@alex7kom/sayonara-config": "0.2.2",
