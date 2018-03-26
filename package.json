@@ -1,6 +1,6 @@
 {
   "name": "travelpayouts-data",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Travelpayouts (Aviasales) data files with query interface",
   "main": "src/index.js",
   "keywords": [
