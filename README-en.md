@@ -4,6 +4,8 @@
 
 A micromodule that wraps [Travelpayouts data files](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05) using [json-query](https://github.com/mmckegg/json-query) and allows to query them.
 
+The files are downloaded on module install. The module is shipped with a cli utility for updating the data files.
+
 # Install
 
 ```
@@ -11,6 +13,8 @@ npm i travelpayouts-data
 ```
 
 # Use
+
+## Module
 
 Load the module:
 
@@ -51,6 +55,14 @@ You can also load data files directly:
 
 ```js
 var cities = require('travelpayouts-data/data/cities');
+```
+
+## Update the files
+
+Run the update using `npm`'s `npx` utility:
+
+```
+npx travelpayouts-data-update
 ```
 
 # Available files

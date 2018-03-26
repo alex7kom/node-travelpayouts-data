@@ -4,6 +4,8 @@
 
 Микромодуль, который оборачивает [файлы данных Travelpayouts](https://support.travelpayouts.com/hc/ru/articles/203956163#09) с помощью [json-query](https://github.com/mmckegg/json-query) и позволяет выполнять к ним запросы.
 
+Файлы скачиваются при установке модуля. В комплекте с модулем идет cli-утилита для обновления файлов.
+
 # Установка
 
 ```
@@ -11,6 +13,8 @@ npm i travelpayouts-data
 ```
 
 # Использование
+
+## Модуль
 
 Загрузите модуль:
 
@@ -51,6 +55,14 @@ var queryCities = loadData('cities');
 
 ```js
 var cities = require('travelpayouts-data/data/cities');
+```
+
+## Обновление файлов
+
+Запуск с помощью утилиты `npx`, идущей в комплекте с `npm`:
+
+```
+npx travelpayouts-data-update
 ```
 
 # Доступные файлы
