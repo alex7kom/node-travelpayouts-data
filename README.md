@@ -6,15 +6,15 @@
 
 Файлы скачиваются при установке модуля. В комплекте с модулем идет cli-утилита для обновления файлов.
 
-# Установка
+## Установка
 
 ```
 npm i travelpayouts-data
 ```
 
-# Использование
+## Использование
 
-## Модуль
+### Модуль
 
 Загрузите модуль:
 
@@ -57,7 +57,7 @@ var queryCities = loadData('cities');
 var cities = require('travelpayouts-data/data/cities');
 ```
 
-## Обновление файлов
+### Обновление файлов
 
 Запуск с помощью утилиты `npx`, идущей в комплекте с `npm`:
 
@@ -65,7 +65,7 @@ var cities = require('travelpayouts-data/data/cities');
 npx travelpayouts-data-update
 ```
 
-# Доступные файлы
+## Доступные файлы
 
 * `airlines` — [авиакомпании](https://support.travelpayouts.com/hc/ru/articles/203956163#12)
 * `airlines_alliances` — [альянсы](https://support.travelpayouts.com/hc/ru/articles/203956163#13)
@@ -76,7 +76,7 @@ npx travelpayouts-data-update
 * `planes` — [самолеты](https://support.travelpayouts.com/hc/ru/articles/203956163#14)
 * `routes` — [маршруты](https://support.travelpayouts.com/hc/ru/articles/203956163#15)
 
-# Примеры
+## Примеры
 
 ```js
 > var queryRoutes = require('travelpayouts-data')('routes');
@@ -110,7 +110,7 @@ npx travelpayouts-data-update
 'S7 Airlines'
 ```
 
-# Лицензия
+## Лицензия
 
 Файлы данных 2016 © Travelpayouts
 

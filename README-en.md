@@ -6,15 +6,15 @@ A micromodule that wraps [Travelpayouts data files](https://support.travelpayout
 
 The files are downloaded on module install. The module is shipped with a cli utility for updating the data files.
 
-# Install
+## Install
 
 ```
 npm i travelpayouts-data
 ```
 
-# Use
+## Use
 
-## Module
+### Module
 
 Load the module:
 
@@ -57,7 +57,7 @@ You can also load data files directly:
 var cities = require('travelpayouts-data/data/cities');
 ```
 
-## Update the files
+### Update the files
 
 Run the update using `npm`'s `npx` utility:
 
@@ -65,7 +65,7 @@ Run the update using `npm`'s `npx` utility:
 npx travelpayouts-data-update
 ```
 
-# Available files
+## Available files
 
 Some of them are described on [the relevant support page](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05).
 
@@ -78,7 +78,7 @@ Some of them are described on [the relevant support page](https://support.travel
 * `planes`
 * `routes`
 
-# Examples
+## Examples
 
 ```js
 > var queryRoutes = require('travelpayouts-data')('routes');
@@ -112,7 +112,7 @@ Some of them are described on [the relevant support page](https://support.travel
 'S7 Airlines'
 ```
 
-# License
+## License
 
 Data files 2016 © Travelpayouts
 
