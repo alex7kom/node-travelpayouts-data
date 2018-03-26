@@ -112,13 +112,13 @@ npx travelpayouts-data-update
 
 ## Лицензия
 
-Файлы данных 2016 © Travelpayouts
+Файлы данных 2016-present © Travelpayouts
 
 Код данного проекта:
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Alexey Komarov <alex7kom@gmail.com>
+Copyright (c) 2016-present Alexey Komarov <alex7kom@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
