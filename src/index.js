@@ -2,7 +2,7 @@ var jsonQuery = require('json-query');
 
 module.exports = function (fileName, allowRegexp) {
   var data = {
-    data: require('./data/' + fileName),
+    data: require('../data/' + fileName),
     allowRegexp: !!allowRegexp
   };
 
