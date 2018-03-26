@@ -6,6 +6,17 @@
 
 Файлы скачиваются при установке модуля. В комплекте с модулем идет cli-утилита для обновления файлов.
 
+## Доступные файлы
+
+* `airlines` — [авиакомпании](https://support.travelpayouts.com/hc/ru/articles/203956163#12)
+* `airlines_alliances` — [альянсы](https://support.travelpayouts.com/hc/ru/articles/203956163#13)
+* `airports` — [аэропорты](https://support.travelpayouts.com/hc/ru/articles/203956163#11)
+* `cases` — [города IATA со склонениями по падежам](https://support.travelpayouts.com/hc/ru/articles/203956063-%D0%91%D0%B0%D0%B7%D1%8B-IATA)
+* `cities` — [города](https://support.travelpayouts.com/hc/ru/articles/203956163#10)
+* `countries` — [страны](https://support.travelpayouts.com/hc/ru/articles/203956163#09)
+* `planes` — [самолеты](https://support.travelpayouts.com/hc/ru/articles/203956163#14)
+* `routes` — [маршруты](https://support.travelpayouts.com/hc/ru/articles/203956163#15)
+
 ## Установка
 
 ```
@@ -13,6 +24,14 @@ npm i travelpayouts-data
 ```
 
 ## Использование
+
+### Обновление файлов
+
+Запуск с помощью утилиты `npx`, идущей в комплекте с `npm`:
+
+```
+npx travelpayouts-data-update
+```
 
 ### Модуль
 
@@ -31,8 +50,8 @@ var queryCities = loadData('cities');
 И делать запросы:
 
 ```js
-> queryCities('[*][code=MOW]').value
-{ code: 'MOW',
+queryCities('[*][code=MOW]').value
+=> { code: 'MOW',
   name: 'Moscow',
   coordinates: { lon: 37.617633, lat: 55.755786 },
   time_zone: 'Europe/Moscow',
@@ -49,7 +68,7 @@ var queryCities = loadData('cities');
   country_code: 'RU' }
 ```
 
-Подробнее язык запросов описан на [странице модуля json-query](https://github.com/mmckegg/json-query). `loadData` выше также поддерживает необязательный второй аргумент, значение которого передается `json-query` в качестве параметра `allowRegexp`.
+Подробнее язык запросов описан на [странице модуля json-query](https://github.com/mmckegg/json-query). `loadData` выше также поддерживает необязательный второй аргумент, значение которого передается `json-query` в качестве параметра `options`.
 
 Вы также можете загружать файлы данных напрямую:
 
@@ -57,31 +76,12 @@ var queryCities = loadData('cities');
 var cities = require('travelpayouts-data/data/cities');
 ```
 
-### Обновление файлов
-
-Запуск с помощью утилиты `npx`, идущей в комплекте с `npm`:
-
-```
-npx travelpayouts-data-update
-```
-
-## Доступные файлы
-
-* `airlines` — [авиакомпании](https://support.travelpayouts.com/hc/ru/articles/203956163#12)
-* `airlines_alliances` — [альянсы](https://support.travelpayouts.com/hc/ru/articles/203956163#13)
-* `airports` — [аэропорты](https://support.travelpayouts.com/hc/ru/articles/203956163#11)
-* `cases` — [города IATA со склонениями по падежам](https://support.travelpayouts.com/hc/ru/articles/203956063-%D0%91%D0%B0%D0%B7%D1%8B-IATA)
-* `cities` — [города](https://support.travelpayouts.com/hc/ru/articles/203956163#10)
-* `countries` — [страны](https://support.travelpayouts.com/hc/ru/articles/203956163#09)
-* `planes` — [самолеты](https://support.travelpayouts.com/hc/ru/articles/203956163#14)
-* `routes` — [маршруты](https://support.travelpayouts.com/hc/ru/articles/203956163#15)
-
 ## Примеры
 
 ```js
-> var queryRoutes = require('travelpayouts-data')('routes');
-> queryRoutes('[*][*departure_airport_iata=DME]').value
-[ { airline_iata: '2B',
+var queryRoutes = require('travelpayouts-data')('routes');
+queryRoutes('[*][*departure_airport_iata=DME]').value
+=> [ { airline_iata: '2B',
     airline_icao: null,
     departure_airport_iata: 'DME',
     departure_airport_icao: null,
@@ -103,11 +103,13 @@ npx travelpayouts-data-update
 ```
 
 ```js
-> var queryAirlines = require('travelpayouts-data')('airlines', true);
-> queryAirlines('[*][name~/^Aeroflot/].callsign').value
-'AEROFLOT'
-> queryAirlines('[*][iata=S7].name').value
-'S7 Airlines'
+var queryAirlines = require('travelpayouts-data')('airlines', {
+  allowRegexp: true
+});
+queryAirlines('[*][name~/^Aeroflot/].callsign').value
+=> 'AEROFLOT'
+queryAirlines('[*][iata=S7].name').value
+=> 'S7 Airlines'
 ```
 
 ## Лицензия

@@ -6,6 +6,19 @@ A micromodule that wraps [Travelpayouts data files](https://support.travelpayout
 
 The files are downloaded on module install. The module is shipped with a cli utility for updating the data files.
 
+## Available files
+
+Some of them are described on [the relevant support page](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05).
+
+* `airlines`
+* `airlines_alliances`
+* `airports`
+* `cases` — [IATA cities Russian names with grammatical cases](https://support.travelpayouts.com/hc/ru/articles/203956063-%D0%91%D0%B0%D0%B7%D1%8B-IATA)
+* `cities`
+* `countries`
+* `planes`
+* `routes`
+
 ## Install
 
 ```
@@ -13,6 +26,14 @@ npm i travelpayouts-data
 ```
 
 ## Use
+
+### Update the files
+
+Run the update using `npm`'s `npx` utility:
+
+```
+npx travelpayouts-data-update
+```
 
 ### Module
 
@@ -31,8 +52,8 @@ var queryCities = loadData('cities');
 Query it:
 
 ```js
-> queryCities('[*][code=MOW]').value
-{ code: 'MOW',
+queryCities('[*][code=MOW]').value
+=> { code: 'MOW',
   name: 'Moscow',
   coordinates: { lon: 37.617633, lat: 55.755786 },
   time_zone: 'Europe/Moscow',
@@ -57,33 +78,12 @@ You can also load data files directly:
 var cities = require('travelpayouts-data/data/cities');
 ```
 
-### Update the files
-
-Run the update using `npm`'s `npx` utility:
-
-```
-npx travelpayouts-data-update
-```
-
-## Available files
-
-Some of them are described on [the relevant support page](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05).
-
-* `airlines`
-* `airlines_alliances`
-* `airports`
-* `cases` — [IATA cities Russian names with grammatical cases](https://support.travelpayouts.com/hc/ru/articles/203956063-%D0%91%D0%B0%D0%B7%D1%8B-IATA)
-* `cities`
-* `countries`
-* `planes`
-* `routes`
-
 ## Examples
 
 ```js
-> var queryRoutes = require('travelpayouts-data')('routes');
-> queryRoutes('[*][*departure_airport_iata=DME]').value
-[ { airline_iata: '2B',
+var queryRoutes = require('travelpayouts-data')('routes');
+queryRoutes('[*][*departure_airport_iata=DME]').value
+=> [ { airline_iata: '2B',
     airline_icao: null,
     departure_airport_iata: 'DME',
     departure_airport_icao: null,
@@ -105,11 +105,13 @@ Some of them are described on [the relevant support page](https://support.travel
 ```
 
 ```js
-> var queryAirlines = require('travelpayouts-data')('airlines', true);
-> queryAirlines('[*][name~/^Aeroflot/].callsign').value
-'AEROFLOT'
-> queryAirlines('[*][iata=S7].name').value
-'S7 Airlines'
+var queryAirlines = require('travelpayouts-data')('airlines', {
+  allowRegexp: true
+});
+queryAirlines('[*][name~/^Aeroflot/].callsign').value
+=> 'AEROFLOT'
+queryAirlines('[*][iata=S7].name').value
+=> 'S7 Airlines'
 ```
 
 ## License
