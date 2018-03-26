@@ -1,9 +1,9 @@
 'use strict';
 
-var jsonQuery = require('json-query');
+const jsonQuery = require('json-query');
 
 module.exports = function(fileName, allowRegexp) {
-  var data = {
+  const data = {
     data: require('../data/' + fileName),
     allowRegexp: Boolean(allowRegexp)
   };
