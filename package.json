@@ -12,10 +12,10 @@
     "travelpayouts-data-update": "./src/download.js"
   },
   "scripts": {
+    "lint": "eslint \"src/**/*.{j,t}s?(x)\"",
+    "pretty": "pretty-quick",
     "postinstall": "node ./src/download",
-    "lint": "sayonara-config lint-node",
-    "pretty": "sayonara-config pretty",
-    "precommit": "sayonara-config pretty --staged"
+    "test": "jest"
   },
   "author": "Alexey Komarov <alex7kom@gmail.com>",
   "repository": {
@@ -28,10 +28,36 @@
     "json-query": "^2.2.2"
   },
   "devDependencies": {
-    "@alex7kom/sayonara-config": "0.2.2",
-    "husky": "^0.14.3"
+    "@alex7kom/sayonara-config": "^0.5.0",
+    "husky": "^3.0.1"
   },
   "eslintConfig": {
-    "extends": "./node_modules/@alex7kom/sayonara-config/src/configs/eslint-node.js"
+    "extends": "./node_modules/@alex7kom/sayonara-config/src/configs/eslint-node.js",
+    "overrides": [
+      {
+        "files": [
+          "*.?(test|spec).{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true,
+          "node": true,
+          "es6": true
+        },
+        "parserOptions": {
+          "ecmaVersion": 2018
+        }
+      }
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && npm run lint"
+    }
+  },
+  "sayonaraConfig": {
+    "sets": [
+      "node-library",
+      "npm-package"
+    ]
   }
 }

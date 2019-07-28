@@ -5,6 +5,9 @@ node_modules
 .vscode
 .idea
 
+# tests
+coverage
+
 # trash
 .DS_Store
 
