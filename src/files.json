@@ -6,7 +6,6 @@
     "airlines.json": "https://api.travelpayouts.com/data/airlines.json",
     "airlines_alliances.json": "https://api.travelpayouts.com/data/airlines_alliances.json",
     "planes.json": "https://api.travelpayouts.com/data/planes.json",
-    "routes.json": "https://api.travelpayouts.com/data/routes.json",
-    "cases.json": "https://support.travelpayouts.com/hc/ru/article_attachments/201561687/cases.json"
+    "routes.json": "https://api.travelpayouts.com/data/routes.json"
   }
 }

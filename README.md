@@ -8,14 +8,13 @@
 
 ## Доступные файлы
 
-* `airlines` — [авиакомпании](https://support.travelpayouts.com/hc/ru/articles/203956163#12)
-* `airlines_alliances` — [альянсы](https://support.travelpayouts.com/hc/ru/articles/203956163#13)
-* `airports` — [аэропорты](https://support.travelpayouts.com/hc/ru/articles/203956163#11)
-* `cases` — [города IATA со склонениями по падежам](https://support.travelpayouts.com/hc/ru/articles/203956063-%D0%91%D0%B0%D0%B7%D1%8B-IATA)
-* `cities` — [города](https://support.travelpayouts.com/hc/ru/articles/203956163#10)
-* `countries` — [страны](https://support.travelpayouts.com/hc/ru/articles/203956163#09)
-* `planes` — [самолеты](https://support.travelpayouts.com/hc/ru/articles/203956163#14)
-* `routes` — [маршруты](https://support.travelpayouts.com/hc/ru/articles/203956163#15)
+- `airlines` — [авиакомпании](https://support.travelpayouts.com/hc/ru/articles/203956163#12)
+- `airlines_alliances` — [альянсы](https://support.travelpayouts.com/hc/ru/articles/203956163#13)
+- `airports` — [аэропорты](https://support.travelpayouts.com/hc/ru/articles/203956163#11)
+- `cities` — [города](https://support.travelpayouts.com/hc/ru/articles/203956163#10)
+- `countries` — [страны](https://support.travelpayouts.com/hc/ru/articles/203956163#09)
+- `planes` — [самолеты](https://support.travelpayouts.com/hc/ru/articles/203956163#14)
+- `routes` — [маршруты](https://support.travelpayouts.com/hc/ru/articles/203956163#15)
 
 ## Установка
 

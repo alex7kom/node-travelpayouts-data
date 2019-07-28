@@ -10,14 +10,13 @@ The files are downloaded on module install. The module is shipped with a cli uti
 
 Some of them are described on [the relevant support page](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05).
 
-* `airlines`
-* `airlines_alliances`
-* `airports`
-* `cases` — [IATA cities Russian names with grammatical cases](https://support.travelpayouts.com/hc/ru/articles/203956063-%D0%91%D0%B0%D0%B7%D1%8B-IATA)
-* `cities`
-* `countries`
-* `planes`
-* `routes`
+- `airlines`
+- `airlines_alliances`
+- `airports`
+- `cities`
+- `countries`
+- `planes`
+- `routes`
 
 ## Install
 
