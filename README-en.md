@@ -2,21 +2,9 @@
 
 [На русском](README.md)
 
-A micromodule that wraps [Travelpayouts data files](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05) using [json-query](https://github.com/mmckegg/json-query) and allows to query them.
+This module downloads, caches and wraps [Travelpayouts data files](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05) using [json-query](https://github.com/mmckegg/json-query) to allow query them.
 
-The files are downloaded on module install. The module is shipped with a cli utility for updating the data files.
-
-## Available files
-
-Some of them are described on [the relevant support page](https://support.travelpayouts.com/hc/en-us/articles/203956163-Data-Access-API#05).
-
-- `airlines`
-- `airlines_alliances`
-- `airports`
-- `cities`
-- `countries`
-- `planes`
-- `routes`
+[The list of available languages and data files](https://api.travelpayouts.com/data/). Note that files in the root are not supported.
 
 ## Install
 
@@ -26,90 +14,100 @@ npm i travelpayouts-data
 
 ## Use
 
-### Update the files
-
-Run the update using `npm`'s `npx` utility:
-
-```
-npx travelpayouts-data-update
-```
-
-### Module
-
 Load the module:
 
 ```js
-var loadData = require('travelpayouts-data');
+const loadData = require('travelpayouts-data');
 ```
 
 Then load the needed file:
 
 ```js
-var queryCities = loadData('cities');
+const { query, raw } = await loadData('ru', 'cities');
 ```
 
 Query it:
 
 ```js
-queryCities('[*][code=MOW]').value
-=> { code: 'MOW',
-  name: 'Moscow',
-  coordinates: { lon: 37.617633, lat: 55.755786 },
+query('[*][code=MOW]').value
+=> {
   time_zone: 'Europe/Moscow',
-  name_translations:
-   { de: 'Moskau',
-     en: 'Moscow',
-     'zh-CN': '莫斯科',
-     tr: 'Moscow',
-     ru: 'Москва',
-     it: 'Mosca',
-     es: 'Moscú',
-     fr: 'Moscou',
-     th: 'มอสโก' },
-  country_code: 'RU' }
+  name: 'Москва',
+  coordinates: { lon: 37.617633, lat: 55.755786 },
+  code: 'MOW',
+  cases: {
+    vi: 'в Москву',
+    tv: 'Москвой',
+    ro: 'Москвы',
+    pr: 'Москве',
+    da: 'Москве'
+  },
+  name_translations: { en: 'Moscow' },
+  country_code: 'RU'
+}
 ```
 
-Learn more about query language on [json-query page](https://github.com/mmckegg/json-query). `loadData` above also supports a second optional argument, which passed to `json-query` as `allowRegexp` param.
+Learn more about query language on [json-query page](https://github.com/mmckegg/json-query). `loadData` above also supports a third optional argument, which passed to `json-query` as `allowRegexp` param.
 
-You can also load data files directly:
+## API
+
+### loadData(language, fileName, [queryOpts])
+
+An async function which returns a promise.
+
+Options:
+
+- `language` is the data file language
+- `fileName` is the file name
+- `queryOpts` (optional) is an object with options for [json-query](https://github.com/mmckegg/json-query)
+
+A fullfilled promise will have an object as a value:
 
 ```js
-var cities = require('travelpayouts-data/data/cities');
+{
+  query, raw;
+}
 ```
+
+- `query` — a [json-query](https://github.com/mmckegg/json-query) function
+- `raw` — the original data
 
 ## Examples
 
 ```js
-var queryRoutes = require('travelpayouts-data')('routes');
-queryRoutes('[*][*departure_airport_iata=DME]').value
-=> [ { airline_iata: '2B',
-    airline_icao: null,
-    departure_airport_iata: 'DME',
-    departure_airport_icao: null,
-    arrival_airport_iata: 'AER',
-    arrival_airport_icao: null,
-    codeshare: false,
-    transfers: 0,
-    planes: [ 'CR2' ] },
-  { airline_iata: '2B',
-    airline_icao: null,
-    departure_airport_iata: 'DME',
-    departure_airport_icao: null,
-    arrival_airport_iata: 'CEK',
-    arrival_airport_icao: null,
-    codeshare: false,
-    transfers: 0,
-    planes: [ 'CR2' ] },
-    ... ]
+const { query } = await loadData('ja', 'airports');
+query('[*][*city_code=TYO]').value
+=> [
+  {
+    time_zone: 'Asia/Tokyo',
+    name: 'Tokyo Yokota AB',
+    flightable: false,
+    coordinates: { lon: 139.35, lat: 35.75 },
+    code: 'OKO',
+    name_translations: { en: 'Yokota AFB' },
+    country_code: 'JP',
+    city_code: 'TYO'
+  },
+  {
+    time_zone: 'Asia/Tokyo',
+    name: '東京国際空港',
+    flightable: true,
+    coordinates: { lon: 139.78453, lat: 35.54907 },
+    code: 'HND',
+    name_translations: { en: 'Haneda Airport' },
+    country_code: 'JP',
+    city_code: 'TYO'
+  },
+  ...]
 ```
 
 ```js
-var queryAirlines = require('travelpayouts-data')('airlines', {
+const { query } = await loadData('en', 'airlines', {
   allowRegexp: true
 });
-queryAirlines('[*][name~/^Aeroflot/].callsign').value
-=> 'AEROFLOT'
-queryAirlines('[*][iata=S7].name').value
+query('[*][name~/^Aeroflot/].code').value
+=> 'SU'
+query('[*][code=S7].name').value
 => 'S7 Airlines'
 ```
 

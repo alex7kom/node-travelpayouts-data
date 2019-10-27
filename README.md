@@ -2,19 +2,9 @@
 
 [In English](README-en.md)
 
-Микромодуль, который оборачивает [файлы данных Travelpayouts](https://support.travelpayouts.com/hc/ru/articles/203956163#09) с помощью [json-query](https://github.com/mmckegg/json-query) и позволяет выполнять к ним запросы.
+Модуль, который автоматически загружает, кеширует, оборачивает [файлы данных Travelpayouts](https://support.travelpayouts.com/hc/ru/articles/203956163#09) с помощью [json-query](https://github.com/mmckegg/json-query) и позволяет выполнять к ним запросы.
 
-Файлы скачиваются при установке модуля. В комплекте с модулем идет cli-утилита для обновления файлов.
-
-## Доступные файлы
-
-- `airlines` — [авиакомпании](https://support.travelpayouts.com/hc/ru/articles/203956163#12)
-- `airlines_alliances` — [альянсы](https://support.travelpayouts.com/hc/ru/articles/203956163#13)
-- `airports` — [аэропорты](https://support.travelpayouts.com/hc/ru/articles/203956163#11)
-- `cities` — [города](https://support.travelpayouts.com/hc/ru/articles/203956163#10)
-- `countries` — [страны](https://support.travelpayouts.com/hc/ru/articles/203956163#09)
-- `planes` — [самолеты](https://support.travelpayouts.com/hc/ru/articles/203956163#14)
-- `routes` — [маршруты](https://support.travelpayouts.com/hc/ru/articles/203956163#15)
+[Список доступных языков и файлов](https://api.travelpayouts.com/data/). Обратите внимание, что файлы, лежащие прямо в корне, не поддерживаются.
 
 ## Установка
 
@@ -24,90 +14,102 @@ npm i travelpayouts-data
 
 ## Использование
 
-### Обновление файлов
-
-Запуск с помощью утилиты `npx`, идущей в комплекте с `npm`:
-
-```
-npx travelpayouts-data-update
-```
-
-### Модуль
-
-Загрузите модуль:
+Подключите модуль:
 
 ```js
-var loadData = require('travelpayouts-data');
+const loadData = require('travelpayouts-data');
 ```
 
 После этого можно загружать нужные файлы:
 
 ```js
-var queryCities = loadData('cities');
+const { query, raw } = await loadData('ru', 'cities');
 ```
 
 И делать запросы:
 
 ```js
-queryCities('[*][code=MOW]').value
-=> { code: 'MOW',
-  name: 'Moscow',
-  coordinates: { lon: 37.617633, lat: 55.755786 },
+query('[*][code=MOW]').value
+=> {
   time_zone: 'Europe/Moscow',
-  name_translations:
-   { de: 'Moskau',
-     en: 'Moscow',
-     'zh-CN': '莫斯科',
-     tr: 'Moscow',
-     ru: 'Москва',
-     it: 'Mosca',
-     es: 'Moscú',
-     fr: 'Moscou',
-     th: 'มอสโก' },
-  country_code: 'RU' }
+  name: 'Москва',
+  coordinates: { lon: 37.617633, lat: 55.755786 },
+  code: 'MOW',
+  cases: {
+    vi: 'в Москву',
+    tv: 'Москвой',
+    ro: 'Москвы',
+    pr: 'Москве',
+    da: 'Москве'
+  },
+  name_translations: { en: 'Moscow' },
+  country_code: 'RU'
+}
 ```
 
-Подробнее язык запросов описан на [странице модуля json-query](https://github.com/mmckegg/json-query). `loadData` выше также поддерживает необязательный второй аргумент, значение которого передается `json-query` в качестве параметра `options`.
+Подробнее язык запросов описан на [странице модуля json-query](https://github.com/mmckegg/json-query). `loadData` выше также поддерживает необязательный третий аргумент, значение которого передается `json-query` в качестве параметра `options`.
 
-Вы также можете загружать файлы данных напрямую:
+## API
+
+### loadData(language, fileName, [queryOpts])
+
+Асинхронная функция, которая возвращает промис.
+
+Параметры:
+
+- `language` — язык файла
+- `fileName` — название файла
+- `queryOpts` (необязательно) — опции [json-query](https://github.com/mmckegg/json-query)
+
+В случае успеха значением промиса будет объект:
 
 ```js
-var cities = require('travelpayouts-data/data/cities');
+{
+  query, raw;
+}
 ```
+
+где:
+
+- `query` — функция запроса [json-query](https://github.com/mmckegg/json-query)
+- `raw` — оригинальные данные
 
 ## Примеры
 
 ```js
-var queryRoutes = require('travelpayouts-data')('routes');
-queryRoutes('[*][*departure_airport_iata=DME]').value
-=> [ { airline_iata: '2B',
-    airline_icao: null,
-    departure_airport_iata: 'DME',
-    departure_airport_icao: null,
-    arrival_airport_iata: 'AER',
-    arrival_airport_icao: null,
-    codeshare: false,
-    transfers: 0,
-    planes: [ 'CR2' ] },
-  { airline_iata: '2B',
-    airline_icao: null,
-    departure_airport_iata: 'DME',
-    departure_airport_icao: null,
-    arrival_airport_iata: 'CEK',
-    arrival_airport_icao: null,
-    codeshare: false,
-    transfers: 0,
-    planes: [ 'CR2' ] },
-    ... ]
+const { query } = await loadData('ja', 'airports');
+query('[*][*city_code=TYO]').value
+=> [
+  {
+    time_zone: 'Asia/Tokyo',
+    name: 'Tokyo Yokota AB',
+    flightable: false,
+    coordinates: { lon: 139.35, lat: 35.75 },
+    code: 'OKO',
+    name_translations: { en: 'Yokota AFB' },
+    country_code: 'JP',
+    city_code: 'TYO'
+  },
+  {
+    time_zone: 'Asia/Tokyo',
+    name: '東京国際空港',
+    flightable: true,
+    coordinates: { lon: 139.78453, lat: 35.54907 },
+    code: 'HND',
+    name_translations: { en: 'Haneda Airport' },
+    country_code: 'JP',
+    city_code: 'TYO'
+  },
+  ...]
 ```
 
 ```js
-var queryAirlines = require('travelpayouts-data')('airlines', {
+const { query } = await loadData('en', 'airlines', {
   allowRegexp: true
 });
-queryAirlines('[*][name~/^Aeroflot/].callsign').value
-=> 'AEROFLOT'
-queryAirlines('[*][iata=S7].name').value
+query('[*][name~/^Aeroflot/].code').value
+=> 'SU'
+query('[*][code=S7].name').value
 => 'S7 Airlines'
 ```
 

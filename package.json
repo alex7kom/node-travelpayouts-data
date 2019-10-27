@@ -8,13 +8,9 @@
     "aviasales",
     "API"
   ],
-  "bin": {
-    "travelpayouts-data-update": "./src/download.js"
-  },
   "scripts": {
     "lint": "eslint \"src/**/*.{j,t}s?(x)\"",
     "pretty": "pretty-quick",
-    "postinstall": "node ./src/download",
     "test": "jest"
   },
   "author": "Alexey Komarov <alex7kom@gmail.com>",
@@ -24,8 +20,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "dl-data": "^1.0.0",
-    "json-query": "^2.2.2"
+    "axios": "^0.19.0",
+    "find-cache-dir": "^3.0.0",
+    "json-query": "^2.2.2",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "@alex7kom/sayonara-config": "^0.5.0",
