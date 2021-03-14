@@ -6,11 +6,10 @@ const util = require('util');
 const axios = require('axios');
 const jsonQuery = require('json-query');
 const findCacheDir = require('find-cache-dir');
-const mkdirpCb = require('mkdirp');
+const mkdirp = require('mkdirp');
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
-const mkdirp = util.promisify(mkdirpCb);
 const getCacheFile = findCacheDir({ name: 'travelpayouts-data', thunk: true });
 
 const cacheTime = 24 * 60 * 60 * 1000; // 1 day
